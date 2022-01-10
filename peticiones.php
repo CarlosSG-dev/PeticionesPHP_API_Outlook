@@ -9,20 +9,29 @@ $curl = curl_init();
 curl_setopt_array($curl, array(
 
 //SACAR CARPETAS
-//CURLOPT_URL => 'https://graph.microsoft.com/v1.0//me/mailFolders/drafts',
+//CURLOPT_URL => 'https://graph.microsoft.com/v1.0//me/mailFolders/drafts', sin drafts, saca todas las carpetas del mail
 
 //SACAR TODOS LOS MENSAJES
 //CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/messages',
 
-//SACAR MENSAJES DE UN DESTINATARIO
-// CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/messages?$filter=(from/emailAddress/address)%20eq%20\'AQUI_CORREO\'',
-
 //SACAR MENSAJES DE X CARPETA EN ESPECÍFICO
 // CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/mailfolders/inbox/messages' donde inbox = nombre(id) de la carpeta
+
+//SACAR MENSAJES DE UN DESTINATARIO
+// CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/messages?$filter=(from/emailAddress/address)%20eq%20\'AQUI_CORREO\'',
+//EJEMPLO FUNCIONAL
+// CURLOPT_URL => 'https://graph.microsoft.com/v1.0//me/mailFolders/inbox/messages?$filter=startsWith(from/emailAddress/address,'support@pccomponentes.com')'
 
 
 //LISTAR REGLAS DE CORREO
 //CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/mailFolders/inbox/messageRules' donde inbox = nombre(id) de la carpeta
+
+//CURLOPT_URL => 'https://graph.microsoft.com/v1.0/me/mailFolders/inbox/messages?$select=id,receivedDateTime,subject,from&$filter=singleValueExtendedProperties/any(ep:ep/id eq 'String 0x5D01' and ep/value eq 'notificacionesg3@mrw.es') and contains(subject,'cuenta')'
+
+//Buscar correos en todas las carpetas a partir de en el asunto un num de envio, remitente notificacionesg3@mrw.es, ultimo en fecha
+
+
+// https://graph.microsoft.com/v1.0/me/mailFolders/inbox/messages?$orderby=receivedDateTime DESC,from/emailAddress/address&$filter=receivedDateTime ge 2016-01-01T00:00:00Z and from/emailAddress/address eq 'no-reply@gls-spain.dev' and contains(subject,'cuenta')&$select=receivedDateTime,from,subject,hasAttachments,bodyPreview
 
 
 CURLOPT_RETURNTRANSFER => true,
